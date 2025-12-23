@@ -1,0 +1,7 @@
+.vs/
+.vscode/
+Areas/
+auto bash/
+bin/
+obj/
+mvcrud.csproj.user
