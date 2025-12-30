@@ -6,24 +6,54 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="WashingOrders" asp-action="Index">
+            <i class="fa-solid fa-file-invoice"></i> Órdenes
+        </a>
     </li>
     <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">
+            <i class="fa-solid fa-car"></i> Vehículos
+        </a>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        <a class="nav-link text-dark" asp-area="" asp-controller="Clients" asp-action="Index">
+            <i class="fa-solid fa-user-group"></i> Clientes
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index">
+            <i class="fa-solid fa-hand-sparkles"></i> Servicios
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Empleados" asp-action="Index">
+            <i class="fa-solid fa-user-gear"></i> Empleados
+        </a>
+    </li>
+    <li class="nav-item ms-lg-3">
+        <a class="nav-link text-primary fw-bold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <i class="fa-solid fa-circle-user"></i> @User.Identity?.Name!
+        </a>
+    </li>
+    <li class="nav-item">
+        <form class="form-inline d-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="nav-link btn btn-link text-danger fw-bold border-0 ms-lg-2">
+                <i class="fa-solid fa-right-from-bracket"></i> Salir
+            </button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">
+            <i class="fa-solid fa-user-plus"></i> Registrarse
+        </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link btn btn-outline-primary ms-lg-2 px-3" asp-area="Identity" asp-page="/Account/Login">
+            <i class="fa-solid fa-right-to-bracket"></i> Ingresar
+        </a>
     </li>
 }
 </ul>

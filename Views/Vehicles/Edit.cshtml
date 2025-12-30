@@ -4,44 +4,59 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Editar Vehículo</h1>
 
-<h4>Vehicle</h4>
+<h4>Vehículo</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Placa" class="control-label"></label>
-                <input asp-for="Placa" class="form-control" />
-                <span asp-validation-for="Placa" class="text-danger"></span>
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fa-solid fa-car"></i> Datos del Vehículo</h5>
             </div>
-            <div class="form-group">
-                <label asp-for="Modelo" class="control-label"></label>
-                <input asp-for="Modelo" class="form-control" />
-                <span asp-validation-for="Modelo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
-                <span asp-validation-for="Color" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientId" class="control-label"></label>
-                <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
-                <span asp-validation-for="ClientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Placa" class="form-label fw-bold"><i class="fa-solid fa-hashtag"></i> Placa</label>
+                            <input asp-for="Placa" class="form-control" />
+                            <span asp-validation-for="Placa" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Modelo" class="form-label fw-bold"><i class="fa-solid fa-car-side"></i> Modelo</label>
+                            <input asp-for="Modelo" class="form-control" />
+                            <span asp-validation-for="Modelo" class="text-danger"></span>
+                        </div>
+                    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Color" class="form-label fw-bold"><i class="fa-solid fa-palette"></i> Color</label>
+                            <input asp-for="Color" class="form-control" />
+                            <span asp-validation-for="Color" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ClientId" class="form-label fw-bold"><i class="fa-solid fa-user"></i> Cliente (Dueño)</label>
+                            <select asp-for="ClientId" class="form-select" asp-items="ViewBag.ClientId"></select>
+                            <span asp-validation-for="ClientId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="fa-solid fa-save"></i> Guardar Cambios
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Volver a la Lista
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

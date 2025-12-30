@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace mvcrud.Models
 {
     public class Vehicle
@@ -10,6 +12,7 @@ namespace mvcrud.Models
         // Foreign Key
         public int ClientId { get; set; }
         // Navigation Property
+        [Display(Name = "Cliente")]
         public Client? Client { get; set; }
     }
 }

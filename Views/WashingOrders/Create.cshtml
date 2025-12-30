@@ -4,49 +4,73 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Nueva Orden de Lavado</h1>
 
-<h4>WashingOrder</h4>
+<h4>Registrar Lavado</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label>Buscar Cliente (Nombre)</label>
-                <input list="clientesList" id="clienteBuscador" class="form-control" placeholder="Escribe para buscar...">
-                <datalist id="clientesList">
-                    @foreach (var cliente in (SelectList)ViewData["ClientId"])
-                    {
-                        <option data-value="@cliente.Value" value="@cliente.Text"></option>
-                    }
-                </datalist>
-                <input type="hidden" asp-for="ClientId" id="ClientIdHidden">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fa-solid fa-file-invoice"></i> Datos de la Orden</h5>
             </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold"><i class="fa-solid fa-user"></i> Buscar Cliente</label>
+                            <input list="clientesList" id="clienteBuscador" class="form-control" placeholder="Escribe para buscar...">
+                            <datalist id="clientesList">
+                                @foreach (var cliente in (SelectList)ViewData["ClientId"])
+                                {
+                                    <option data-value="@cliente.Value" value="@cliente.Text"></option>
+                                }
+                            </datalist>
+                            <input type="hidden" asp-for="ClientId" id="ClientIdHidden">
+                            <span asp-validation-for="ClientId" class="text-danger"></span>
+                        </div>
 
-            <div class="form-group">
-                <label>Vehículo (Placa)</label>
-                <select asp-for="VehicleId" id="VehicleSelect" class="form-control">
-                    <option value="">-- Seleccione un cliente primero --</option>
-                </select>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold"><i class="fa-solid fa-car"></i> Vehículo (Placa)</label>
+                            <select asp-for="VehicleId" id="VehicleSelect" class="form-select">
+                                <option value="">-- Seleccione un cliente primero --</option>
+                            </select>
+                            <span asp-validation-for="VehicleId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ServiceId" class="form-label fw-bold"><i class="fa-solid fa-hand-sparkles"></i> Servicio</label>
+                            <select asp-for="ServiceId" class ="form-select" asp-items="ViewBag.ServiceId">
+                                <option value="">-- Seleccione Servicio --</option>
+                            </select>
+                            <span asp-validation-for="ServiceId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EmployeeId" class="form-label fw-bold"><i class="fa-solid fa-user-gear"></i> Empleado encargado</label>
+                            <select asp-for="EmployeeId" class ="form-select" asp-items="ViewBag.EmployeeId">
+                                <option value="">-- Seleccione Empleado --</option>
+                            </select>
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="fa-solid fa-plus"></i> Crear Orden
+                        </button>
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Volver a la Lista
+                        </a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="ServiceId" class="control-label"></label>
-                <select asp-for="ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace mvcrud.Models
 {
     public enum WashingState
@@ -13,16 +15,19 @@ namespace mvcrud.Models
         
         // Foreign Key for Vehicle
         public int VehicleId { get; set; }
+        [Display(Name = "Vehiculo")]
         public Vehicle? Vehicle { get; set; }
 
         public int? ClientId { get; set; }
 
         // Foreign Key for Service
         public int ServiceId { get; set; }
+        [Display(Name = "Servicio")]
         public Service? Service { get; set; }
 
         // Foreign Key for Employee (Empleado)
         public int EmployeeId { get; set; }
+        [Display(Name = "Empleado")]
         public Empleado? Employee { get; set; }
 
         public DateTime Fecha { get; set; } = DateTime.Now;

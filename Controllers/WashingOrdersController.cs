@@ -103,9 +103,9 @@ namespace autolavado.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Empleados, "Id", "Id", washingOrder.EmployeeId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", washingOrder.ServiceId);
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Id", washingOrder.VehicleId);
+            ViewData["EmployeeId"] = new SelectList(_context.Empleados, "Id", "Nombre", washingOrder.EmployeeId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Nombre", washingOrder.ServiceId);
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Placa", washingOrder.VehicleId);
             return View(washingOrder);
         }
 
@@ -141,9 +141,9 @@ namespace autolavado.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Empleados, "Id", "Id", washingOrder.EmployeeId);
-            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Id", washingOrder.ServiceId);
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Id", washingOrder.VehicleId);
+            ViewData["EmployeeId"] = new SelectList(_context.Empleados, "Id", "Nombre", washingOrder.EmployeeId);
+            ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "Nombre", washingOrder.ServiceId);
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Placa", washingOrder.VehicleId);
             return View(washingOrder);
         }
 
