@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using mvcrud.Models;
 
 namespace autolavado.Controllers
 {
+    [Authorize]
     public class WashingOrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +24,11 @@ namespace autolavado.Controllers
         // GET: WashingOrders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.WashingOrders.Include(w => w.Employee).Include(w => w.Service).Include(w => w.Vehicle);
+            var applicationDbContext = _context.WashingOrders
+                .Include(w => w.Employee)
+                .Include(w => w.Service)
+                .Include(w => w.Vehicle)
+                .OrderByDescending(w => w.Fecha);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -196,13 +202,27 @@ namespace autolavado.Controllers
                 return NotFound();
             }
 
-            if (washingOrder.Estado == WashingState.Pendiente)
+            if (washingOrder.Estado == WashingState.Procesando)
             {
                 washingOrder.Estado = WashingState.Terminado;
                 _context.Update(washingOrder);
                 await _context.SaveChangesAsync();
             }
 
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Iniciar(int? id)
+        {
+            if (id == null) return NotFound();
+            var washingOrder = await _context.WashingOrders.FindAsync(id);
+            if (washingOrder == null) return NotFound();
+            // Solo podemos iniciar si está Pendiente
+            if (washingOrder.Estado == WashingState.Pendiente)
+            {
+                washingOrder.Estado = WashingState.Procesando; 
+                _context.Update(washingOrder);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
         //? Endpoint obtener vehiculos por id cliente
@@ -220,5 +240,6 @@ namespace autolavado.Controllers
         {
             return _context.WashingOrders.Any(e => e.Id == id);
         }
+        
     }
 }

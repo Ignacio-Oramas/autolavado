@@ -14,19 +14,19 @@
             @Html.DisplayNameFor(model => model.Vehicle)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vehicle.Placa)
+            @Html.DisplayFor(model => model.Vehicle!.Placa)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Service)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Service.Nombre)
+            @Html.DisplayFor(model => model.Service!.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Employee)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Nombre)
+            @Html.DisplayFor(model => model.Employee!.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Fecha)

@@ -23,7 +23,7 @@
                             <label class="form-label fw-bold"><i class="fa-solid fa-user"></i> Buscar Cliente</label>
                             <input list="clientesList" id="clienteBuscador" class="form-control" placeholder="Escribe para buscar...">
                             <datalist id="clientesList">
-                                @foreach (var cliente in (SelectList)ViewData["ClientId"])
+                                @foreach (var cliente in (SelectList)ViewData["ClientId"]!)
                                 {
                                     <option data-value="@cliente.Value" value="@cliente.Text"></option>
                                 }

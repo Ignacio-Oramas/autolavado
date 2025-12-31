@@ -182,7 +182,7 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
 
 ## Resumen de la sesión (29 de diciembre de 2025)
 
-### 1. Funcionalidad de Búsqueda de Clientes en Órdenes de Lavado
+### 1. Funcionalidad de Bósqueda de Clientes en Órdenes de Lavado
 *   **Objetivo:** Facilitar la creación de órdenes de lavado permitiendo buscar clientes por nombre y filtrar automáticamente sus vehículos asociados.
 *   **Modelado:** Se añadió la propiedad `ClientId` al modelo `WashingOrder` para facilitar la gestión del cliente seleccionado en la interfaz.
 *   **Implementación en Backend (`WashingOrdersController.cs`):**
@@ -194,6 +194,53 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
     *   Se integró lógica JavaScript para la actualización dinámica de vehículos vía AJAX.
 *   **Base de Datos:**
     *   Se creó y aplicó la migración `AddClientIdToWashingOrder` para reflejar el cambio en el modelo `WashingOrder` en la base de datos, resolviendo un error de `SqlException`.
+
+### 2. Refactorización de UI/UX (Clean Code & Modern Design)
+*   **Estandarización de Vistas:** Se aplicó un diseño consistente basado en tarjetas de Bootstrap, Grid System y FontAwesome a las vistas CRUD de `Clients`, `Services`, `Vehicles` y `WashingOrders`.
+*   **Mejora de Usabilidad:**
+    *   Reemplazo de IDs numéricos por nombres descriptivos (Ej. Mostrar "Juan Pérez" en lugar de "ID: 5") en tablas y formularios.
+    *   Traducción de etiquetas y botones al español (Ej. "Create New" -> "Nuevo Cliente").
+    *   Uso de insignias (badges) para estados y botones con iconos para acciones (Editar, Eliminar, Detalles).
+
+### 3. Navegación y Control de Acceso
+*   **_LoginPartial.cshtml:**
+    *   Se añadieron enlaces directos a los módulos del sistema ( Órdenes, Vehículos, Clientes, Servicios, Empleados) con iconos distintivos.
+    *   Se restringió la visibilidad de estos enlaces exclusivamente a usuarios autenticados.
+    *   Se mejoró el estilo de los botones de Login, Registro y Logout ("Ingresar", "Registrarse", "Salir") para una mejor experiencia de usuario.
+
+### 4. Actualización de Contenidos
+*   **Política de Privacidad:** Se redactó una política específica para el sistema de autolavado en `Privacy.cshtml`.
+
+### 5. Control de Versiones
+*   Commit: `feat(ui): Mejorar interfaz y navegación del sistema de lavado`
+
+## Resumen de la sesión (30 de diciembre de 2025)
+
+### 1. Corrección de Bug: Definición Incorrecta en Enum `WashingState`
+*   **Problema:** Error de compilación `CS0117: 'WashingState' no contiene una definición para 'EnProceso'`. El código intentaba usar un miembro del enum inexistente.
+*   **Diagnóstico:** Al revisar `Models/WashingOrder.cs`, se confirmó que el enum `WashingState` define los miembros `Pendiente`, `Procesando`, y `Terminado`. El código usaba erróneamente `EnProceso`.
+*   **Solución:**
+    *   **`Controllers/WashingOrdersController.cs`:** Se reemplazó `WashingState.EnProceso` por `WashingState.Procesando` en el método `Iniciar`.
+    *   **`Views/WashingOrders/Index.cshtml`:** Se actualizó la condición para mostrar el botón "Finalizar" usando `WashingState.Procesando`.
+### 2. Corrección de Bug: Lógica de Estado en `Completar` (WashingOrders)
+*   **Problema:** El botón "Finalizar" en la vista `Index` de Órdenes de Lavado no tenía efecto.
+*   **Diagnóstico:** El método `Completar` en el controlador `WashingOrdersController` verificaba si el estado era `Pendiente` antes de cambiarlo a `Terminado`. Sin embargo, el flujo de la UI habilita el botón "Finalizar" solo cuando el estado es `Procesando` (después de haber iniciado el lavado). Por lo tanto, la condición nunca se cumplía.
+*   **Solución:** Se modificó la condición en `WashingOrdersController.cs` para permitir completar órdenes que están en estado `WashingState.Procesando`.
+    ```csharp
+    // Antes
+    if (washingOrder.Estado == WashingState.Pendiente) { ... }
+    
+    // Ahora
+    if (washingOrder.Estado == WashingState.Procesando) { ... }
+    ```
+*   **Verificación:** Se compiló el proyecto exitosamente.
+
+### 3. Ajustes de UI
+*   **`Views/WashingOrders/Index.cshtml`:** Se cambió el color del botón "Comenzar Lavado" de `btn-info` (azul) a `btn-warning` (amarillo) para diferenciarlo visualmente del botón "Detalles".
+*   **Orden de Visualización:** Se actualizó la acción `Index` en `WashingOrdersController.cs` para ordenar las órdenes de lavado por fecha de forma descendente (`OrderByDescending`), mostrando las más recientes primero.
+
+### 4. Calidad de Código
+*   **Supresión de Advertencias (Nullable):** Se añadieron operadores de "null-forgiving" (`!`) en varias vistas (`WashingOrders`, `Vehicles`) para eliminar las advertencias de compilación `CS8602` y `CS8600` relacionadas con posibles referencias nulas en propiedades de navegación (Vehicle, Service, Employee, Client).
 
 ---
 *Archivo actualizado automáticamente por Gemini CLI.*

@@ -39,13 +39,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Vehicle.Placa)
+                @Html.DisplayFor(modelItem => item.Vehicle!.Placa)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Service.Nombre)
+                @Html.DisplayFor(modelItem => item.Service!.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.Nombre)
+                @Html.DisplayFor(modelItem => item.Employee!.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
@@ -60,6 +60,10 @@
             </td>
             <td>
                 @if (item.Estado == WashingState.Pendiente)
+                {
+                    <a asp-action="Iniciar" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Comenzar Lavado</a>
+                }
+                else if (item.Estado == WashingState.Procesando)
                 {
                     <a asp-action="Completar" asp-route-id="@item.Id" class="btn btn-sm btn-success">Finalizar</a>
                 }
