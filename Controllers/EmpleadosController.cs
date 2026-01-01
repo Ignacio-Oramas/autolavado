@@ -25,9 +25,11 @@ namespace mvcrud.Controllers
         }
 
         // GET: Empleados
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            return View(await _context.Empleados.ToListAsync());
+            var source = _context.Empleados.AsNoTracking();
+            int pageSize = 8;
+            return View(await mvcrud.Helpers.PaginatedList<Empleado>.CreateAsync(source, pageNumber ?? 1, pageSize));
         }
 
         // GET: Empleados/Details/5

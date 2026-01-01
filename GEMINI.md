@@ -266,5 +266,21 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
     *   `Areas/Identity/Pages/Account/Manage/_Layout.cshtml`: Layout específico de la sección de administración, con los textos "Gestionar tu cuenta" y "Cambiar configuración de la cuenta" traducidos.
 *   **Detalles:** Se mantuvo la consistencia visual usando tarjetas (`card`) y se aseguró que todas las alertas y mensajes de confirmación estuvieran en español. Se restauró `_ManageNav.cshtml` tras la regeneración de archivos.
 
+## Resumen de la sesión (1 de enero de 2026 - Continuación)
+
+### 1. Implementación de Paginación del Servidor (Server-side Pagination)
+*   **Clase Helper:** Se creó `Helpers/PaginatedList.cs` para gestionar la lógica de paginación de forma genérica y eficiente utilizando `Skip` y `Take` en las consultas a la base de datos.
+*   **Controladores Actualizados:** Se modificó la acción `Index` en los siguientes controladores para aceptar `pageNumber` y devolver una lista paginada (8 registros por página):
+    *   `WashingOrdersController`
+    *   `VehiclesController`
+    *   `ClientsController`
+    *   `ServicesController`
+    *   `EmpleadosController`
+*   **Vistas Actualizadas:** Se modificaron las vistas `Index.cshtml` de todos los módulos mencionados para:
+    *   Cambiar el modelo a `PaginatedList<T>`.
+    *   Corregir `DisplayNameFor` para que sea compatible con el nuevo modelo mediante `model.FirstOrDefault()!.Property`.
+    *   Implementar controles de navegación con estilos de Bootstrap (`< Anterior | 1 | 2 | 3 | Siguiente >`).
+*   **Calidad:** Se verificó la compilación exitosa del proyecto tras los cambios.
+
 ---
 *Archivo actualizado automáticamente por Gemini CLI.*

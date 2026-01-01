@@ -22,9 +22,11 @@ namespace autolavado.Controllers
         }
 
         // GET: Services
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            return View(await _context.Services.ToListAsync());
+            var source = _context.Services.AsNoTracking();
+            int pageSize = 8;
+            return View(await mvcrud.Helpers.PaginatedList<Service>.CreateAsync(source, pageNumber ?? 1, pageSize));
         }
 
         // GET: Services/Details/5

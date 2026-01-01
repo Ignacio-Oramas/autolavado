@@ -1,4 +1,4 @@
-@model IEnumerable<mvcrud.Models.WashingOrder>
+@model mvcrud.Helpers.PaginatedList<mvcrud.Models.WashingOrder>
 
 @{
     ViewData["Title"] = "Index";
@@ -15,22 +15,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Vehicle)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Vehicle)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Service)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Service)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employee)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Employee)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Fecha)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Fecha)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Estado)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Total)
+                @Html.DisplayNameFor(model => model.FirstOrDefault()!.Total)
             </th>
             <th></th>
         </tr>
@@ -75,3 +75,35 @@
 }
     </tbody>
 </table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @prevDisabled">
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               class="page-link">
+                &lt; Anterior
+            </a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                <a asp-action="Index"
+                   asp-route-pageNumber="@i"
+                   class="page-link">@i</a>
+            </li>
+        }
+        <li class="page-item @nextDisabled">
+            <a asp-action="Index"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               class="page-link">
+                Siguiente &gt;
+            </a>
+        </li>
+    </ul>
+</nav>

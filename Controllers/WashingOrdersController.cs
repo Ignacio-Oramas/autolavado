@@ -22,14 +22,17 @@ namespace autolavado.Controllers
         }
 
         // GET: WashingOrders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            var applicationDbContext = _context.WashingOrders
+            var source = _context.WashingOrders
                 .Include(w => w.Employee)
                 .Include(w => w.Service)
                 .Include(w => w.Vehicle)
-                .OrderByDescending(w => w.Fecha);
-            return View(await applicationDbContext.ToListAsync());
+                .OrderByDescending(w => w.Fecha)
+                .AsNoTracking();
+
+            int pageSize = 8;
+            return View(await mvcrud.Helpers.PaginatedList<WashingOrder>.CreateAsync(source, pageNumber ?? 1, pageSize));
         }
 
         // GET: WashingOrders/Details/5
