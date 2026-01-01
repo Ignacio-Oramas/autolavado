@@ -258,5 +258,13 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
     *   `Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml`: Cambio de contraseña estilizado y traducido.
     *   `Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml`: Menú lateral de perfil traducido y con iconos.
 
+### 2. Traducción Completa de Gestión de Cuenta
+*   **Archivos Generados y Traducidos:**
+    *   `Areas/Identity/Pages/Account/Manage/Email.cshtml`: Gestión de correo electrónico.
+    *   `Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml`: Autenticación de dos factores (2FA), incluyendo alertas y botones.
+    *   `Areas/Identity/Pages/Account/Manage/PersonalData.cshtml`: Descarga y eliminación de datos personales.
+    *   `Areas/Identity/Pages/Account/Manage/_Layout.cshtml`: Layout específico de la sección de administración, con los textos "Gestionar tu cuenta" y "Cambiar configuración de la cuenta" traducidos.
+*   **Detalles:** Se mantuvo la consistencia visual usando tarjetas (`card`) y se aseguró que todas las alertas y mensajes de confirmación estuvieran en español. Se restauró `_ManageNav.cshtml` tras la regeneración de archivos.
+
 ---
 *Archivo actualizado automáticamente por Gemini CLI.*
