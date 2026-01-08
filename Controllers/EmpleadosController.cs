@@ -47,6 +47,16 @@ namespace mvcrud.Controllers
                 return NotFound();
             }
 
+            // Si CreadoPor parece un ID (GUID), intentamos obtener el correo
+            if (Guid.TryParse(empleado.CreadoPor, out _))
+            {
+                var user = await _userManager.FindByIdAsync(empleado.CreadoPor);
+                if (user != null)
+                {
+                    empleado.CreadoPor = user.Email ?? user.UserName ?? empleado.CreadoPor;
+                }
+            }
+
             return View(empleado);
         }
 
@@ -63,9 +73,9 @@ namespace mvcrud.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Empleado empleado)
         {
-            var userId = _userManager.GetUserId(User);
+            var userEmail = User.Identity?.Name;
             empleado.FechaCreacion = DateTime.Now;
-            empleado.CreadoPor = userId ?? "Sistema"; 
+            empleado.CreadoPor = userEmail ?? "Sistema"; 
             if (ModelState.IsValid)
             {
                 _context.Add(empleado);
