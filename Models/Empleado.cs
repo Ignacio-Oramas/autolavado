@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace mvcrud.Models
 {
@@ -10,6 +11,7 @@ namespace mvcrud.Models
 		public string Apellido { get; set; } = string.Empty;
 		public string Puesto { get; set; } = string.Empty;
 		[DisplayName ("Fecha de Nacimiento" )]
+		[DataType(DataType.Date)]
 		public DateTime FechaNacimiento { get; set; } = DateTime.Now;
 
 		public string Pais { get; set; } = string.Empty;

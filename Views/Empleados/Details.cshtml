@@ -1,84 +1,91 @@
 @model mvcrud.Models.Empleado
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Empleado";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Empleado</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Puesto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Puesto)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaNacimiento)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pais)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pais)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dirreccion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dirreccion)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ciudad)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ciudad)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NumeroTelefono)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NumeroTelefono)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreadoPor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreadoPor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaCreacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaCreacion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container-fluid px-4">
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0"><i class="fa-solid fa-circle-info me-2"></i>Información del Empleado</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-user me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-user me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Apellido)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Apellido)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-briefcase me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Puesto)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Puesto)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-calendar me-2 text-primary"></i>@Html.DisplayNameFor(model => model.FechaNacimiento)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.FechaNacimiento)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-earth-americas me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Pais)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Pais)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-envelope me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-location-dot me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Dirreccion)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Dirreccion)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-city me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Ciudad)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Ciudad)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold">
+                    <i class="fa-solid fa-phone me-2 text-primary"></i>@Html.DisplayNameFor(model => model.NumeroTelefono)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.NumeroTelefono)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold text-muted">
+                    <i class="fa-solid fa-user-pen me-2"></i>@Html.DisplayNameFor(model => model.CreadoPor)
+                </dt>
+                <dd class="col-sm-9 text-muted">
+                    @Html.DisplayFor(model => model.CreadoPor)
+                </dd>
+                <dt class="col-sm-3 font-weight-bold text-muted">
+                    <i class="fa-solid fa-clock me-2"></i>@Html.DisplayNameFor(model => model.FechaCreacion)
+                </dt>
+                <dd class="col-sm-9 text-muted">
+                    @Html.DisplayFor(model => model.FechaCreacion)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-4">
+                <i class="fa-solid fa-pen-to-square me-2"></i>Editar
+            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary px-4 ms-2">
+                <i class="fa-solid fa-arrow-left me-2"></i>Volver a la Lista
+            </a>
+        </div>
+    </div>
 </div>

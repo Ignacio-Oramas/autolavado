@@ -228,8 +228,7 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
 *   **Solución:** Se modificó la condición en `WashingOrdersController.cs` para permitir completar órdenes que están en estado `WashingState.Procesando`.
     ```csharp
     // Antes
-    if (washingOrder.Estado == WashingState.Pendiente) { ... }
-    
+    if (washingOrder.Estado == WashingState.Pendiente) { ... }    
     // Ahora
     if (washingOrder.Estado == WashingState.Procesando) { ... }
     ```
@@ -285,6 +284,38 @@ En esta sesión, se realizaron una serie de mejoras y correcciones en los módul
 ### 2. Personalización de Inicio y Navegación
 *   **Vista de Inicio:** Se actualizó `Views/Home/Index.cshtml` con el título del sistema y la autoría.
 *   **Layout:** Se eliminó el enlace redundante "Dashboard" del menú de navegación principal para simplificar la interfaz.
+
+## Resumen de la sesión (7 de enero de 2026)
+
+### 1. Corrección en UI: Fecha de Nacimiento (Empleados)
+*   **Problema:** Al agregar un empleado, el campo "Fecha de Nacimiento" solicitaba fecha y hora, siendo la hora irrelevante.
+*   **Solución:** Se añadió el atributo `[DataType(DataType.Date)]` a la propiedad `FechaNacimiento` en el modelo `Empleado.cs`.
+*   **Resultado:** Los navegadores ahora renderizan un selector de fecha nativo (sin hora) en las vistas de creación y edición.
+
+### 2. Traducción y Refactorización de UI: Clientes y Servicios
+*   **Objetivo:** Traducir las interfaces de "Clientes" y "Servicios" al español y mejorar su diseño visual.
+*   **Acciones:**
+    *   Se tradujeron todas las vistas CRUD (`Create`, `Edit`, `Details`, `Delete`, `Index`) de los módulos `Clients` y `Services`.
+    *   Se aplicó un diseño basado en tarjetas (`card`) de Bootstrap con iconos de FontAwesome para una apariencia moderna y consistente.
+    *   Se actualizaron los títulos de las páginas y los botones de acción (Ej: "Back to List" -> "Volver a la Lista", "Save" -> "Guardar Cambios").
+
+### 3. Mejora de Usabilidad: Servicios (Precios y Duración)
+*   **Precios:**
+    *   Se configuró la aplicación (`Program.cs`) con cultura `en-US` por defecto para asegurar que el punto (`.`) se interprete correctamente como separador decimal (Ej. `10.5` = $10.50), evitando errores comunes con configuraciones regionales latinas (donde `10.5` podría ser `105`).
+    *   Se actualizó el input de precio a `type="number" step="0.01"`.
+*   **Duración:**
+    *   Se dividió el campo de "Duración Estimada" en dos inputs separados: **Horas** y **Minutos**.
+    *   Se añadieron propiedades `[NotMapped]` (`DuracionHoras`, `DuracionMinutos`) al modelo `Service`.
+    *   Se actualizó el `ServicesController` para manejar la conversión automática entre estos campos y la propiedad `TimeSpan` de la base de datos.
+    *   **Visualización:** Se formateó la duración en el listado y detalles para ser legible en lenguaje natural (Ej: "1 hora y 30 minutos").
+
+### 4. Estandarización Visual de Módulos (Empleados, Vehículos, Órdenes)
+*   **Diseño:** Se actualizó el diseño de las vistas (`Create`, `Edit`, `Details`, `Delete`) de `Empleados`, `Vehicles` y `WashingOrders` para usar el mismo sistema de tarjetas y estilos que `Clients` y `Services`.
+*   **Traducción:** Se tradujeron todos los textos restantes al español.
+*   **Listados (`Index`):**
+    *   Se añadieron iconos FontAwesome a todos los botones de acción (`Editar`, `Detalles`, `Eliminar`, `Comenzar`, `Finalizar`).
+    *   Se aplicó la clase `text-white` a los botones informativos y de éxito para asegurar el contraste correcto de los iconos.
+    *   **Órdenes de Lavado:** Se eliminó la hora de la columna fecha, mostrando solo la fecha corta.
 
 ---
 *Archivo actualizado automáticamente por Gemini CLI.*

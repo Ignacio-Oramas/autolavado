@@ -1,10 +1,10 @@
 @model mvcrud.Helpers.PaginatedList<mvcrud.Models.WashingOrder>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Órdenes de Lavado";
 }
 
-<h1>Ordenes de Lavado</h1>
+<h1>Órdenes de Lavado</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.Employee!.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
+                @item.Fecha.ToShortDateString()
             </td>
             <td>
                 <span class="badge @(item.Estado == WashingState.Pendiente ? "bg-warning text-dark" : (item.Estado == WashingState.Terminado ? "bg-success" : "bg-primary"))">
@@ -56,20 +56,20 @@
                 </span>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Total)
+                $@item.Total.ToString("0.00")
             </td>
             <td>
                 @if (item.Estado == WashingState.Pendiente)
                 {
-                    <a asp-action="Iniciar" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Comenzar Lavado</a>
+                    <a asp-action="Iniciar" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white"><i class="fa-solid fa-play"></i> Comenzar Lavado</a>
                 }
                 else if (item.Estado == WashingState.Procesando)
                 {
-                    <a asp-action="Completar" asp-route-id="@item.Id" class="btn btn-sm btn-success">Finalizar</a>
+                    <a asp-action="Completar" asp-route-id="@item.Id" class="btn btn-sm btn-success text-white"><i class="fa-solid fa-check"></i> Finalizar</a>
                 }
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Editar</a>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary" title="Editar"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white" title="Detalles"><i class="fa-solid fa-circle-info"></i> Detalles</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Eliminar"><i class="fa-solid fa-trash"></i> Eliminar</a>
             </td>
         </tr>
 }

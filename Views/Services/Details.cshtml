@@ -1,36 +1,61 @@
 @model mvcrud.Models.Service
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Servicio";
 }
 
-<h1>Details</h1>
+<div class="container-fluid px-4">
+    <div class="card shadow-sm mt-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0"><i class="fa-solid fa-circle-info me-2"></i>Información del Servicio</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-4 font-weight-bold">
+                    <i class="fa-solid fa-tag me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Nombre)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class="col-sm-4 font-weight-bold">
+                    <i class="fa-solid fa-dollar-sign me-2 text-primary"></i>@Html.DisplayNameFor(model => model.Precio)
+                </dt>
+                <dd class="col-sm-8">
+                    $@Model.Precio.ToString("0.00")
+                </dd>
+                <dt class="col-sm-4 font-weight-bold">
+                    <i class="fa-solid fa-clock me-2 text-primary"></i>@Html.DisplayNameFor(model => model.DuracionEstimada)
+                </dt>
+                <dd class="col-sm-8">
+                    @{
+                        var hours = Model.DuracionEstimada.Hours;
+                        var minutes = Model.DuracionEstimada.Minutes;
+                        var durationDisplay = "";
 
-<div>
-    <h4>Service</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DuracionEstimada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DuracionEstimada)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                        if (hours > 0)
+                        {
+                            durationDisplay = hours == 1 ? "1 hora" : $"{hours} horas";
+                            if (minutes > 0)
+                            {
+                                durationDisplay += $" y {minutes} minutos";
+                            }
+                        }
+                        else
+                        {
+                            durationDisplay = $"{minutes} minutos";
+                        }
+                    }
+                    @durationDisplay
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-4">
+                <i class="fa-solid fa-pen-to-square me-2"></i>Editar
+            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary px-4 ms-2">
+                <i class="fa-solid fa-arrow-left me-2"></i>Volver a la Lista
+            </a>
+        </div>
+    </div>
 </div>

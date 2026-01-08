@@ -58,8 +58,11 @@ namespace autolavado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Precio,DuracionEstimada")] Service service)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Precio,DuracionHoras,DuracionMinutos")] Service service)
         {
+            // Construir DuracionEstimada desde las horas y minutos ingresados
+            service.DuracionEstimada = new TimeSpan(service.DuracionHoras, service.DuracionMinutos, 0);
+
             if (ModelState.IsValid)
             {
                 _context.Add(service);
@@ -82,6 +85,11 @@ namespace autolavado.Controllers
             {
                 return NotFound();
             }
+            
+            // Poblar las propiedades no mapeadas para la vista
+            service.DuracionHoras = service.DuracionEstimada.Hours;
+            service.DuracionMinutos = service.DuracionEstimada.Minutes;
+
             return View(service);
         }
 
@@ -90,12 +98,15 @@ namespace autolavado.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Precio,DuracionEstimada")] Service service)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Precio,DuracionHoras,DuracionMinutos")] Service service)
         {
             if (id != service.Id)
             {
                 return NotFound();
             }
+
+            // Actualizar DuracionEstimada
+            service.DuracionEstimada = new TimeSpan(service.DuracionHoras, service.DuracionMinutos, 0);
 
             if (ModelState.IsValid)
             {

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using mvcrud.Data;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,18 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+var defaultDateCulture = "en-US";
+var ci = new CultureInfo(defaultDateCulture);
+ci.NumberFormat.NumberDecimalSeparator = ".";
+ci.NumberFormat.CurrencyDecimalSeparator = ".";
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(ci),
+    SupportedCultures = new List<CultureInfo> { ci },
+    SupportedUICultures = new List<CultureInfo> { ci }
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
